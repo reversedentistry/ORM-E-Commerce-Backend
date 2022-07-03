@@ -21,10 +21,10 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Products
   try {
     const category = await Category.findByPk(req.params.id, {
-      include: [{ model: Product}],
+      include: [{ model: Product }],
     }); 
     if (!category) {
-      res.status(404).json({ message: 'No category found with that id!' });
+      res.status(404).json({ message: 'No category found with this id.' });
       return;
     }
     res.status(200).json(category); 
@@ -35,6 +35,12 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
+  try {
+    const newCategory = await Category.create(req.body); 
+    res.status(200).json(newCategory); 
+  } catch (err) {
+    resizeBy.status(400).json(err); 
+  }
 });
 
 router.put('/:id', (req, res) => {
