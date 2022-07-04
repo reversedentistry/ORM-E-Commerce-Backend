@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:tag_id', async (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
   try {
@@ -27,6 +27,7 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: "No product found with this id."});
       return;
     }
+    res.status(200).json(tag);
   } catch (err) {
     res.status(500).json(err);
   }
@@ -44,7 +45,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:tag_id', async (req, res) => {
   // update a tag's name by its `id` value
   try {
     const updatedTag = await Tag.update(
@@ -67,7 +68,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-router.delete('/:id', async (req, res) => {
+router.delete('/:tag_id', async (req, res) => {
   // delete on tag by its `id` value
   try {
     const deletedTag = await Tag.destroy({
